@@ -2,8 +2,25 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const envConfig: any = {
+  local: {
+    text: 'local'
+  },
+  stage: {
+    text: 'stage'
+  },
+  default: {
+    text: 'default'
+  }
+};
+
 export const environment = {
-  production: false
+  production: true,
+  getConfig: (): any => {
+    const currentEnv: any = (window as any).env;
+    const config = envConfig[currentEnv];
+    return config ? config : envConfig.default;
+  }
 };
 
 /*
